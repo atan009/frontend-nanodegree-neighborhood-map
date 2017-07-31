@@ -1,0 +1,38 @@
+.divider {
+	height: 5px;
+	background-color: #2d3c49;
+}
+
+.container {
+	margin-top: 35px;
+	margin-bottom: 35px;
+}
+
+.logo-svg {
+	max-width: 100px;
+	max-height: 100px;
+}
+
+.text-muted {
+	color: #BCBBBB;
+}
+
+.text-thin {
+	font-weight: 100;
+}
+
+.title-super {
+	font-size: 60px;
+	font-family: 'Lato', sans-serif;
+	color: #676858;
+	font-weight: bold;
+}
+
+.title-logo {
+	margin-top: 20px;
+}
+
+.img-responsive {
+	width: 100%;
+	height: 100%;
+}
