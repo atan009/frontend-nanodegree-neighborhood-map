@@ -13,8 +13,6 @@ html, body, .container, .row, .map-div, .col-md-12 {
     float: left;
 }
 
-
-
 .sidenav {
     height: 100%;
     width: 0;
@@ -42,8 +40,14 @@ html, body, .container, .row, .map-div, .col-md-12 {
     margin-left: 0px;
 }
 
-input[type=text] {
+input[type=search] {
     width: 80%;
+    margin-left: 10%;
+    margin-bottom: 5%;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
+}
+
+.list-name {
+	color: #40e0d0;
 }

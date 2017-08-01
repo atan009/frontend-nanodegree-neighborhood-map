@@ -5,8 +5,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/styles.css" rel="stylesheet">
-	<script async type="text/javascript" src="js/knockout-3.4.2.js"></script>
-	<script async src="js/jQuery.js"></script>
+	<script src="js/jQuery.js"></script>
+	<script type="text/javascript" src="js/knockout-3.4.2.js"></script>
+	<script src='http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js'></script>
+  	<script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/1.2.1/knockout-min.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -14,23 +16,30 @@
 			<div class="col-md-12 map-div">
 
 
-	<div id="mySidenav" class="sidenav">
-	  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-	  <a href="#"><input type="text" name="search" placeholder="Filter" data-bind="value: query, valueUpdate: 'keyup'"></a>
-	  <a href="#">Services</a>
-	  <a href="#">Clients</a>
-	  <a href="#">Contact</a>
-	  <span data-bind="text: loc"></span>
-	</div>
-	<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Filter</span>
+				<div id="mySidenav" class="sidenav">
+				    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
 
 
+				    <form action="#">
+				        <input placeholder="Search…" type="search" name="q" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
+				    </form>
+				    <div class="content">
+				    	<ul data-bind="template: {name:'location', foreach:locations}"></ul>
+				    </div>
+
+				    <script data-proofer-ignore type="text/html" id="location">
+				    	<li>
+				        <p class="list-name" data-bind="text: name"></p>
+				    	</li>
+				    </script>
+				</div>
+				<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Filter</span>
 
 
 
-	<!--Where the map is put-->
-	<div id="map"></div>
+				<!--Where the map is put-->
+				<div id="map"></div>
 	
 			</div>
 		</div>
