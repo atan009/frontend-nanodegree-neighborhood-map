@@ -78,9 +78,8 @@ $(function() {
         
 
         marker.addListener('click', function() {
-        	if (marker.getAnimation() === null) {
-            	this.setAnimation(google.maps.Animation.BOUNCE);
-            }
+        	this.setAnimation(google.maps.Animation.BOUNCE);
+            
             populateInfoWindow(this, largeInfowindow);
 
         });
@@ -97,16 +96,20 @@ $(function() {
 
 	function populateInfoWindow(marker, infowindow) {
         // Check to make sure the infowindow is not already opened on this marker.
-        if (infowindow.marker != marker) {
-            infowindow.marker = marker;
-            infowindow.setContent('<div>' + marker.title + '</div>');
-            infowindow.open(map, marker);
-            // Make sure the marker property is cleared if the infowindow is closed.
-            infowindow.addListener('closeclick',function(){
-            	infowindow.setMarker = null;
-            	marker.setAnimation(null);
-            });
+        if (infowindow.marker !== undefined && infowindow.marker !== marker) {
+        	infowindow.marker.setAnimation(null);
         }
+		
+        infowindow.marker = marker;
+        infowindow.setContent('<div>' + marker.title + '</div>');
+        infowindow.open(map, marker);
+        // Make sure the marker property is cleared if the infowindow is closed.
+        infowindow.addListener('closeclick',function(){
+        	//infowindow.setMarker = null;
+        	infowindow.close();
+        	marker.setAnimation(null);
+        });
+        
     }
 
 	//filterList display
