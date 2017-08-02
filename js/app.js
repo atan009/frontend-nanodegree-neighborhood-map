@@ -116,20 +116,27 @@ $(function() {
 		query: ko.observable(''),
 
 		search: function(value) {
-			for (var i = 0; i < markers.length; i++) {
-				markers[i].setMap(null);
-			}
-			markers = [];
-
 			viewModel.locations.removeAll();
 			for(var x in topCities) {
 	  			if(topCities[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
 	    			viewModel.locations.push(topCities[x]);
-	    			markers.push(topCities[x]);
+	    			//markers.push(topCities[x]);
 	  			}
 			}
 
-			
+			//remove all markers
+			for (var i = 0; i < markers.length; i++) {
+				markers[i].setMap(null);
+			}
+
+			//only show filtered markers
+			for (var i = 0; i < viewModel.locations().length; i++) {
+				for (var k = 0; k < markers.length; k++) {
+					if (viewModel.locations()[i].name === markers[k].title) {
+						markers[k].setMap(map);
+					}
+				}
+			}
 		}
 
 	};
