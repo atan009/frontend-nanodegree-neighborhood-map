@@ -38,12 +38,12 @@
 				        <input placeholder="Search…" type="search" name="q" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
 				    </form>
 				    <div class="content">
-				    	<ul data-bind="template: {name:'location', foreach:locations}"></ul>
+				    	<ul class="list-names" data-bind="template: {name:'location', foreach:locations}"></ul>
 				    </div>
 
 				    <script data-proofer-ignore type="text/html" id="location">
 				    	<li>
-				        <p class="list-name" data-bind="text: name"></p>
+				        <button class="list-name" data-bind="text: name"></button>
 				    	</li>
 				    </script>
 				</div>
