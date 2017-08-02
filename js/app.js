@@ -1,3 +1,4 @@
+//TODO: inline this as script @ index.html
 var map;
 var center;
     function initMap() {
@@ -23,7 +24,7 @@ function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
 }
 
-$(function() {
+$(window).on("load", function() {
 	// This function takes in a COLOR, and then creates a new marker
     // icon of that color. The icon will be 21 px wide by 34 high, have an origin
     // of 0, 0 and be anchored at 10, 34).
