@@ -59,9 +59,7 @@ $(window).on("load", function() {
 		//marker listeners and effects
         marker.addListener('click', function() {
         	this.setAnimation(google.maps.Animation.BOUNCE);
-            
             populateInfoWindow(this, largeInfowindow);
-
         });
 
         marker.addListener('mouseover', function() {
@@ -80,7 +78,7 @@ $(window).on("load", function() {
 	var limit = "&limit=1";
 	var query = "&query=coffee";
 	var intent = "&intent=checkin";
-	var client_id = "&client_id=SOLANGOZASSDBV4XL23XFJ3PKNNGDIDPKV125VU1B4UF3B03"
+	var client_id = "&client_id=SOLANGOZASSDBV4XL23XFJ3PKNNGDIDPKV125VU1B4UF3B03";
 	var client_secret = "&client_secret=VJOIFV1UFBZDSR3GNADBOJJ15ZF1XU2JDRQ2JP3NOKNVLACR";
 	var url = "";
 
@@ -156,12 +154,12 @@ $(window).on("load", function() {
 			}
 
 			//remove all markers
-			for (var i = 0; i < markers.length; i++) {
+			for (i = 0; i < markers.length; i++) {
 				markers[i].setMap(null);
 			}
 
 			//only show filtered markers
-			for (var i = 0; i < viewModel.locations().length; i++) {
+			for (i = 0; i < viewModel.locations().length; i++) {
 				for (var k = 0; k < markers.length; k++) {
 					if (viewModel.locations()[i].name === markers[k].title) {
 						markers[k].setMap(map);
@@ -169,7 +167,6 @@ $(window).on("load", function() {
 				}
 			}
 		}
-
 	};
 
 	//opens info window on button click
