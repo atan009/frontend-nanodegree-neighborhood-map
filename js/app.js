@@ -41,7 +41,7 @@ $(window).on("load", function() {
 
 
 	var largeInfowindow = new google.maps.InfoWindow();
-    var bounds = new google.maps.LatLngBounds();
+    //var bounds = new google.maps.LatLngBounds();
 
 
     //stores all markers
@@ -57,21 +57,24 @@ $(window).on("load", function() {
         });
 
 		//marker listeners and effects
-        marker.addListener('click', function() {
-        	this.setAnimation(google.maps.Animation.BOUNCE);
-            populateInfoWindow(this, largeInfowindow);
-        });
-
-        marker.addListener('mouseover', function() {
-        	this.setIcon(highlightedIcon);
-        });
-        marker.addListener('mouseout', function() {
-            this.setIcon(defaultIcon);
-        });
-
+        marker.addListener('click', handleclick);
+        marker.addListener('mouseover', handlemouseover);
+        marker.addListener('mouseout', handlemouseout);
         markers.push(marker);
 	}
 
+	function handleclick() {
+		this.setAnimation(google.maps.Animation.BOUNCE);
+        populateInfoWindow(this, largeInfowindow);
+	}
+
+	function handlemouseover() {
+		this.setIcon(highlightedIcon);
+	}
+
+	function handlemouseout() {
+		this.setIcon(defaultIcon);
+	}
 
 	//Foursquare url request
 	var ll = "";
