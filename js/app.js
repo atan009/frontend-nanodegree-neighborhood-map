@@ -1,29 +1,3 @@
-//TODO: inline this as script @ index.html
-var map;
-var center;
-    function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 37.0902, lng: -95.7129},
-        zoom: 4
-    });
-
-	google.maps.event.addDomListener(window, 'resize', function() {
-		center = map.getCenter();
-		google.maps.event.trigger(map, "resize");
-    	map.setCenter(center);
-	});
-}
-
-//opens Filter Menu to 25%
-function openNav() {
-	document.getElementById("mySidenav").style.width = "25%";
-}
-
-//closes Filter Menu
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-}
-
 $(window).on("load", function() {
 	// This function takes in a COLOR, and then creates a new marker
     // icon of that color. The icon will be 21 px wide by 34 high, have an origin
@@ -39,10 +13,12 @@ $(window).on("load", function() {
         return markerImage;
     }
 
+
     // Create a "highlighted location" marker color for when the user
     // mouses over the marker.
     var highlightedIcon = makeMarkerIcon('FFFF24');
     var defaultIcon = makeMarkerIcon('FE7569');
+
 
 	//array with all the information
 	var topCities = [
@@ -63,9 +39,12 @@ $(window).on("load", function() {
 	    }
 	];
 
+
 	var largeInfowindow = new google.maps.InfoWindow();
     var bounds = new google.maps.LatLngBounds();
 
+
+    //stores all markers
 	var markers = [];
 	for (var i = 0; i < topCities.length; i++) {
 		var marker = new google.maps.Marker({
@@ -77,6 +56,7 @@ $(window).on("load", function() {
             icon: defaultIcon
         });
 
+		//marker listeners and effects
         marker.addListener('click', function() {
         	this.setAnimation(google.maps.Animation.BOUNCE);
             
@@ -92,33 +72,81 @@ $(window).on("load", function() {
         });
 
         markers.push(marker);
-
 	}
 
+
+	//Foursquare url request
+	var ll = "";
+	var limit = "&limit=1";
+	var query = "&query=coffee";
+	var intent = "&intent=checkin";
+	var client_id = "&client_id=SOLANGOZASSDBV4XL23XFJ3PKNNGDIDPKV125VU1B4UF3B03"
+	var client_secret = "&client_secret=VJOIFV1UFBZDSR3GNADBOJJ15ZF1XU2JDRQ2JP3NOKNVLACR";
+	var url = "";
+
+
+	//marker info window
 	function populateInfoWindow(marker, infowindow) {
         // Check to make sure the infowindow is not already opened on this marker.
         if (infowindow.marker !== undefined && infowindow.marker !== marker) {
         	infowindow.marker.setAnimation(null);
         }
+
+        //set url latlng based on clicked marker
+        ll = "ll=" + marker.position.lat() + "%2C%20" + marker.position.lng();
+        url = "https://api.foursquare.com/v2/venues/explore?v=20161016&" + ll + limit + query + intent + client_id + client_secret;
 		
-        infowindow.marker = marker;
-        infowindow.setContent('<div>' + marker.title + '</div>');
+		//gets information from url and stores them into infobox + error checking
+        $.getJSON(url, function(data) {
+        	infowindow.marker = marker;
+
+			var innerHTML = '<div>';
+	        if (data.response.groups[0].items[0].venue.name) {
+	            innerHTML += '<strong>' + data.response.groups[0].items[0].venue.name + '</strong>';
+	        }
+	        if (data.response.groups[0].items[0].venue.location.address) {
+	            innerHTML += '<br>' + data.response.groups[0].items[0].venue.location.address;
+	        }
+	        if (data.response.groups[0].items[0].venue.location.city) {
+	            innerHTML += '<br>' + data.response.groups[0].items[0].venue.location.city;
+	        }
+	        if (data.response.groups[0].items[0].venue.location.state) {
+	            innerHTML += '<br>' + data.response.groups[0].items[0].venue.location.state;
+	        }
+	        if (data.response.groups[0].items[0].venue.location.postalCode) {
+	            innerHTML += ' ' + data.response.groups[0].items[0].venue.location.postalCode;
+	        }
+
+	        if (data.response.groups[0].items[0].venue.categories.icon) {
+            innerHTML += '<br><br><img src="' + data.response.groups[0].items[0].venue.categories.icon.prefix + data.response.groups[0].items[0].venue.categories.icon.suffix + '">';
+          	}
+
+	        innerHTML += '</div>';
+	        infowindow.setContent(innerHTML);
+		}).error(function(e) {
+			alert("Could not request url");
+		});        
+
+        //infowindow.setContent('<div>' + marker.title + '</div>');
         infowindow.open(map, marker);
         // Make sure the marker property is cleared if the infowindow is closed.
         infowindow.addListener('closeclick',function(){
-        	//infowindow.setMarker = null;
         	infowindow.close();
         	marker.setAnimation(null);
         });
         
     }
 
+
 	//filterList display
 	var viewModel = {
+		//observable array of locations
 		locations: ko.observableArray(topCities),
 
+		//search query
 		query: ko.observable(''),
 
+		//filter based on search query
 		search: function(value) {
 			viewModel.locations.removeAll();
 			for(var x in topCities) {

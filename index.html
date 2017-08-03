@@ -5,11 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/styles.css" rel="stylesheet">
-
-	<!--jQuery-->
 	<script src="js/jQuery.js"></script>
-
-	<!--knockout-->
 	<script type="text/javascript" src="js/knockout-3.4.2.js"></script>
 
 	<!--templates-->
@@ -28,19 +24,19 @@
 		<div class="row">
 			<div class="col-md-12 map-div">
 
-
+				<!--sidebar div-->
 				<div id="mySidenav" class="sidenav">
 				    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
-
-
+				    <!--search filter-->
 				    <form action="#">
 				        <input placeholder="Search…" type="search" name="q" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
 				    </form>
+
+				    <!--button list filter-->
 				    <div class="content">
 				    	<ul class="list-names" data-bind="template: {name:'location', foreach:locations}"></ul>
 				    </div>
-
 				    <script data-proofer-ignore type="text/html" id="location">
 				    	<li>
 				        <button class="list-name" data-bind="text: name"></button>
@@ -58,6 +54,33 @@
 		</div>
 	</div>
     
+    <!--initialize the map-->
+    <script type="text/javascript">
+    	var map;
+		var center;
+		    function initMap() {
+		        map = new google.maps.Map(document.getElementById('map'), {
+		        center: {lat: 37.0902, lng: -95.7129},
+		        zoom: 4
+		    });
+
+			google.maps.event.addDomListener(window, 'resize', function() {
+				center = map.getCenter();
+				google.maps.event.trigger(map, "resize");
+		    	map.setCenter(center);
+			});
+		}
+
+		//opens Filter Menu to 25%
+		function openNav() {
+			document.getElementById("mySidenav").style.width = "25%";
+		}
+
+		//closes Filter Menu
+		function closeNav() {
+		    document.getElementById("mySidenav").style.width = "0";
+		}
+    </script>
 
     <!--Bootstrap script-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
