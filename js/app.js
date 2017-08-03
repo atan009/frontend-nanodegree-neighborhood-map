@@ -76,7 +76,6 @@ $(window).on("load", function() {
             id: i,
             icon: defaultIcon
         });
-        
 
         marker.addListener('click', function() {
         	this.setAnimation(google.maps.Animation.BOUNCE);
@@ -93,6 +92,7 @@ $(window).on("load", function() {
         });
 
         markers.push(marker);
+
 	}
 
 	function populateInfoWindow(marker, infowindow) {
@@ -124,7 +124,6 @@ $(window).on("load", function() {
 			for(var x in topCities) {
 	  			if(topCities[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
 	    			viewModel.locations.push(topCities[x]);
-	    			//markers.push(topCities[x]);
 	  			}
 			}
 
@@ -145,10 +144,16 @@ $(window).on("load", function() {
 
 	};
 
-	//marker display
-	var viewMarker = {
-		display: console.log(viewModel.locations())
-	};
+	//opens info window on button click
+	$(".list-names").on('click', 'li', function() {
+		var btnClk = ($(this).text()).trim();
+		for (var i = 0; i < markers.length; i++) {
+			if (markers[i].title === btnClk) {
+				markers[i].setAnimation(google.maps.Animation.BOUNCE);
+				populateInfoWindow(markers[i], largeInfowindow);
+			}
+		}
+	});
 
 	viewModel.query.subscribe(viewModel.search);
 
