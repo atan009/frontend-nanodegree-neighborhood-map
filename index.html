@@ -13,7 +13,7 @@
   	<script async src="http://cdnjs.cloudflare.com/ajax/libs/knockout/1.2.1/knockout-min.js"></script>
 
   	<!--Google Map API call-->
-  	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOsZ6i1miDgjuWvpThfVjbH1uR4KFNBts&callback=initMap"
+  	<script src="https://maps.ERRORgoogleapis.com/maps/api/js?key=AIzaSyCOsZ6i1miDgjuWvpThfVjbH1uR4KFNBts&callback=initMap" onerror="handlerFunction()"
     async defer></script>
 
     <!--Attaching other files-->
@@ -80,6 +80,11 @@
 		//closes Filter Menu
 		function closeNav() {
 		    document.getElementById("mySidenav").style.width = "0";
+		}
+
+		//error handler Google Maps API
+		function handlerFunction() {
+			alert("Problem with Google Maps API");
 		}
     </script>
 
