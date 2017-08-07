@@ -1,6 +1,3 @@
-function handlerFunction() {
-	alert("Problem with Google Maps API");
-}
 $(window).on("load", function() {
 	// This function takes in a COLOR, and then creates a new marker
     // icon of that color. The icon will be 21 px wide by 34 high, have an origin
@@ -173,18 +170,19 @@ $(window).on("load", function() {
 				}
 			}
 		}
+
 	};
 
 	//opens info window on button click
-	$(".list-names").on('click', 'li', function() {
-		var btnClk = ($(this).text()).trim();
+	this.openInfoWin = function() {	
+		var btnClk = (this.name.trim());
 		for (var i = 0; i < markers.length; i++) {
 			if (markers[i].title === btnClk) {
 				markers[i].setAnimation(google.maps.Animation.BOUNCE);
 				populateInfoWindow(markers[i], largeInfowindow);
 			}
 		}
-	});
+	};
 
 	viewModel.query.subscribe(viewModel.search);
 
