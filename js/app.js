@@ -22,26 +22,31 @@ $(window).on("load", function() {
 
 	//array with all the information
 	var topCities = [
-		{ "name": "New York City, NY",
-			"loc": { lat: 40.7128, lng: -74.0059 }
+		{ //"name": "New York City, NY",
+			"loc": { lat: 40.7128, lng: -74.0059 },
+			"name": "The Wooly Daily"
+
 		},
-	    { "name": "San Francisco, CA",
-	    	"loc": { lat: 37.7749, lng: -122.4194 }
+	    { //"name": "San Francisco, CA",
+	    	"loc": { lat: 37.7749, lng: -122.4194 },
+	    	"name": "Blue Bottle Coffee"
 	    },
-	    { "name": "Las Vegas, NV",
-	    	"loc": { lat: 36.1699, lng: -115.1398 }
+	    { //"name": "Las Vegas, NV",
+	    	"loc": { lat: 36.1699, lng: -115.1398 },
+	    	"name": "Donut Bar"
 	    },
-	    { "name": "Chicago, IL",
-	    	"loc": { lat: 41.8781, lng: -87.6298 }
+	    { //"name": "Chicago, IL",
+	    	"loc": { lat: 41.8781, lng: -87.6298 },
+	    	"name": "Intelligetnsia Coffee"
 	    },
-	    { "name": "Los Angeles, CA",
-	    	"loc": { lat: 34.0522, lng: -118.2437 }
+	    { //"name": "Los Angeles, CA",
+	    	"loc": { lat: 34.0522, lng: -118.2437 },
+	    	"name": "Cafe Demitasse"
 	    }
 	];
 
 
 	var largeInfowindow = new google.maps.InfoWindow();
-    //var bounds = new google.maps.LatLngBounds();
 
 
     //stores all markers
@@ -128,7 +133,6 @@ $(window).on("load", function() {
 			alert("Could not request url");
 		});        
 
-        //infowindow.setContent('<div>' + marker.title + '</div>');
         infowindow.open(map, marker);
         // Make sure the marker property is cleared if the infowindow is closed.
         infowindow.addListener('closeclick',function(){
